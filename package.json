@@ -1,0 +1,19 @@
+{
+  "name": "mttp",
+  "version": "0.0.1",
+  "description": "My Tiny Toy Parser",
+  "main": "lib/parser.js",
+  "repository": {
+      "type": "git",
+      "url": "git://github.com/pmros/mttp.git"
+  },
+  "author": "pmros",
+  "license": "MIT",
+  "dependencies": {
+    "lex": "^1.7.8"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "livescript": "^1.4.0"
+  }
+}
