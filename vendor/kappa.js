@@ -1145,7 +1145,7 @@ k.utils.str = (function()
  * @classdesc This class reprensent a generic Node class */
 k.data.Node = (function () {
 	'use strict';
-	
+
 	/*
 	 * Constructor Generic Node for any kind of graph
 	 *
@@ -1157,17 +1157,17 @@ k.data.Node = (function () {
 	var node = function (options)
 	{
 		this.options = options;
-		
+
 		k.utils.obj.defineProperty(this, 'transitions');
 		k.utils.obj.defineProperty(this, 'nodes');
 		k.utils.obj.defineProperty(this, 'name');
-		
+
 		k.utils.obj.defineProperty(this, '_id');
-		
+
 		this.transitions = options.transitions || [];
 		this.nodes = options.nodes || [];
 	};
-	
+
 	/* @method Returns the string ID of the current state
 	 * @returns {String} ID  */
 	node.prototype.getIdentity = function()
@@ -1177,14 +1177,14 @@ k.data.Node = (function () {
 		}
 		return this._id;
 	};
-	
+
 	/* @method Generates an ID that identify this node from any other state
 	 * @returns {String} Generated ID  */
 	node.prototype._generateIdentity = function()
 	{
 		return this.name || k.utils.obj.uniqueId('node_');
 	};
-	
+
 	/* @method Add a new transaction into the list of transactions of the current state
 	 * @param {Object} transitionValue Object use to make the transition (i.e. symbol), description of the arista (like the name of the transition)
 	 * @param {Node} node Destination node (or state) arrived when moving with the specified tranisiotn
@@ -1194,7 +1194,7 @@ k.data.Node = (function () {
 		this.transitions.push(this._generateNewTransition(transitionValue, node));
 		this.nodes.push(node);
 	};
-	
+
 	/* @method Function responsible the creation of new transition objects
 	 * @param {Object} transitionValue Object use to make the transition, description of the arista (like the name of the transition)
 	 * @param {Node} node Destination node (or state) arrived when moving with the specified tranisiotn
@@ -1206,14 +1206,14 @@ k.data.Node = (function () {
 			node: node
 		};
 	};
-	
+
 	/* @method Gets the node identity
 	* @returns {String} A formatted string id of the node */
 	node.prototype.toString = function ()
 	{
 		return this.getIdentity();
 	};
-	
+
 	return node;
 })();
 
@@ -1885,10 +1885,10 @@ var Grammar = k.data.Grammar = (function () {
  * @classdesc This class reprensent an AST NODE, a sub-type of a generic Node */
 k.data.ASTNode = (function(_super) {
 	'use strict';
-	
+
 	/* jshint latedef:false */
 	k.utils.obj.inherit(astNode, _super);
-	
+
 	/*
 	 * Constructor AST Node
 	 *
@@ -1919,22 +1919,22 @@ k.data.ASTNode = (function(_super) {
 			options.deep = k.utils.obj.isNumber(options.deep) ? options.deep : 0;
 			var tabs = k.utils.str.tabs(options.deep);
 			++options.deep;
-			
+
 			return tabs + this._toCurrentString() + '\n' + k.utils.obj.reduce(this.nodes, function (acc, node) {
 				return acc + (k.utils.obj.isString(node) ? k.utils.str.tabs(options.deep) + node + '\n' : node.toString({deep: options.deep}));
 			},'');
-		} 
-		
+		}
+
 		return this._toCurrentString();
 	};
-	
+
 	/* @method Generates a string representation of the current AST Node
 	 * @returns {String} formatted string */
 	astNode.prototype._toCurrentString = function ()
 	{
 		return this.getIdentity() + (this.rule ? ': '+ this.rule.toString() + ' (' + this.currentValue + ')' : '');
 	};
-	
+
 	return astNode;
 })(k.data.Node);
 /* Item Rule
@@ -1943,7 +1943,7 @@ k.data.ASTNode = (function(_super) {
 processed. Ex. S ==> aB*AB */
 var ItemRule = k.data.ItemRule = (function() {
 	'use strict';
-	
+
 	var defaultCloneOptions = {
 		dotLocationIncrement: 0
 	};
@@ -1963,12 +1963,12 @@ var ItemRule = k.data.ItemRule = (function() {
 		k.utils.obj.defineProperty(this, 'rule');
 		k.utils.obj.defineProperty(this, 'dotLocation');
 		k.utils.obj.defineProperty(this, 'lookAhead');
-		
+
 		k.utils.obj.defineProperty(this, '_id');
 
 		this.lookAhead = this.lookAhead || [];
 		this.dotLocation = options.dotLocation || 0;
-		
+
 		if (this.rule && this.rule.tail.length === 1 && this.rule.tail[0].name === k.data.specialSymbol.EMPTY)
 		{
 			//Empty rules are reduce items
@@ -2016,11 +2016,11 @@ var ItemRule = k.data.ItemRule = (function() {
 	{
 		var ruleAux = this.rule,
 			lookAheadAux = this.lookAhead;
-			
+
 		this.rule = this.lookAhead = null;
-		
+
 		var result = k.utils.obj.extendInNew(this.options, extendedOptions || {});
-		
+
 		this.rule = result.rule = ruleAux;
 		this.lookAhead = lookAheadAux;
 		result.lookAhead = [].concat(lookAheadAux);
@@ -2038,7 +2038,7 @@ var ItemRule = k.data.ItemRule = (function() {
 
 		this.dotLocation = optionsValue + incrementValue;
 	};
-	
+
 	/* @method Gets a string id that uniquely identity the current item rule
 	* @returns {String} Id */
 	itemRule.prototype.getIdentity = function ()
@@ -2049,7 +2049,7 @@ var ItemRule = k.data.ItemRule = (function() {
 		}
 		return this._id;
 	};
-	
+
 	/* @method Internal method to generate a unique Id
 	* @returns {String} Id */
 	itemRule.prototype._generateIdentity = function ()
@@ -2065,7 +2065,7 @@ var ItemRule = k.data.ItemRule = (function() {
 		// In this case the next item is null
 		return this.dotLocation < (this.rule.tail.length + 1) ? this.rule.tail[this.dotLocation] : null;
 	};
-	
+
 	/* @method Determines if the current item rule is a reduce one or not
 	* @returns {Boolean} True if the current item is a reduce item, false otherwise */
 	itemRule.prototype.isReduce = function ()
@@ -2099,7 +2099,7 @@ var ItemRule = k.data.ItemRule = (function() {
 k.data.StackItem = (function() {
 	'use strict';
 	/*
-	* Creates an instance of a Parser 
+	* Creates an instance of a Parser
 	*
 	* @constructor
 	* @param {Object} options.state (Require) The current state
@@ -2116,12 +2116,12 @@ k.data.StackItem = (function() {
 		k.utils.obj.defineProperty(this, 'stringValue');
 		k.utils.obj.defineProperty(this, 'symbol');
 		k.utils.obj.defineProperty(this, 'AST');
-		
+
 		if (!this.state) {
 			throw new Error('Invalid initialization values for a Stack Item, please provide a valid state');
 		}
 	};
-	
+
 	return stackItem;
 })();
 
@@ -4034,7 +4034,7 @@ var Parser = k.parser.Parser = (function() {
 						this.stack.slice(-1 * (rule.tail.length + 1), this.stack.length - 1);
 		reduceFunctionParameters.values = k.utils.obj.map(stackRange, function (stackItem)
 		{
-			return stackItem.currentValue || stackItem.symbol;
+			return stackItem.currentValue;
 		});
 		reduceFunctionParameters.ignoredStrings = k.utils.obj.map(stackRange, function (stackItem)
 		{
@@ -4051,7 +4051,7 @@ var Parser = k.parser.Parser = (function() {
 		//Update last stack item
 		lastItem = this.stack[this.stack.length - 1];
 		lastItem.symbol = rule.head;
-		lastItem.currentValue = k.utils.obj.isFunction(rule.reduceFunc) ? (rule.reduceFunc.call(this, reduceFunctionParameters) || lastItem.symbol) : lastItem.symbol;
+		lastItem.currentValue = k.utils.obj.isFunction(rule.reduceFunc) ? rule.reduceFunc.call(this, reduceFunctionParameters) : lastItem.symbol;
 
 
 		// Update/Generate AST
