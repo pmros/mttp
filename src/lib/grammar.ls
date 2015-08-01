@@ -1,52 +1,37 @@
 require! '../vendor/kappa': k
 
+grammar = (rules) -> new k.data.Grammar { rules, startSymbol: rules.0.head }
+rule = (name, opts) -> new k.data.Rule { name, opts.head, opts.tail }
+non-terminal = (name) -> new k.data.NonTerminal { name }
+terminal = (name) -> new k.data.Terminal { name, body: '' }
+
+# terminal
+number = terminal \NUMBER
+indent = terminal \INDENT
+dedent = terminal \DEDENT
+
+# non-terminal
+C = non-terminal \C
+D = non-terminal \D
+
+# special symbols
+empty = new k.data.Symbol name: k.data.specialSymbol.EMPTY
+
 /*
 S -> C
 
-C -> NUMBER D
-C -> C NUMBER D
+C -> number D
+C -> C number D
 
-D -> EMPTY
-D -> INDENT C DEDENT
+D -> empty
+D -> indent C dedent
 */
 
-S1 = new k.data.Rule do
-  head: \S
-  tail:
-    new k.data.NonTerminal name: \C
-    ...
-  name: \S1
+module.exports = grammar do
+  * rule \S1 head: \S tail: [ C ]
 
-C1 = new k.data.Rule do
-  head: \C
-  tail:
-    new k.data.Terminal name: \NUMBER body: ''
-    new k.data.NonTerminal name: \D
-  name: \C1
+    rule \C1 head: \C tail: [ number, D ]
+    rule \C2 head: \C tail: [ C, number, D ]
 
-C2 = new k.data.Rule do
-  head: \C
-  tail:
-    new k.data.NonTerminal name: \C
-    new k.data.Terminal name: \NUMBER body: ''
-    new k.data.NonTerminal name: \D
-  name: \C2
-
-D1 = new k.data.Rule do
-  head: \D
-  tail:
-    new k.data.Symbol name: k.data.specialSymbol.EMPTY
-    ...
-  name: \D1
-
-D2 = new k.data.Rule do
-  head: \D
-  tail:
-    new k.data.Terminal name: \INDENT body: ''
-    new k.data.NonTerminal name: \C
-    new k.data.Terminal name: \DEDENT body: ''
-  name: \D2
-
-module.exports = new k.data.Grammar do
-  startSymbol: S1.head
-  rules: [ S1, C1, C2, D1, D2 ]
+    rule \D1 head: \D tail: [ empty ]
+    rule \D2 head: \D tail: [ indent, C, dedent ]
