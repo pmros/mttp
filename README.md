@@ -25,14 +25,21 @@ Just for fun and learning. Maybe this little project could help me to write some
 git clone https://github.com/pmros/mttp.git
 cd mttp
 npm install
-node lib/parser.js < examples/numbers.txt
+./bin/mttp < test/input
 ```
+
+## How does MTTP work?
+MTTP tries different implementations of lexers/parsers for the same grammar. Currently there is only one implementation:
+-  Lex/Kappa compiler:
+  - Lexer: a lexer called [lexer](https://github.com/aaditmshah/lexer).
+  - Adapter: it just adapts lexer tokens (flex/bison style) to expected Kappa tokens.
+  - Parser: [Kappa](https://github.com/Mictian/kappa), a nice LALR parser.
 
 ## Goals
 - A parser that it can run at Node.js.
-- Indent based syntax (so I choose this [lexer](https://github.com/aaditmshah/lexer) instead parser default lexer).
-- Fun to code and easy to read (so I choosed LiveScript/[Kappa](https://github.com/Mictian/kappa) instead of Plain Javascript/Jison, for example).
+- Indent based syntax.
+- Fun to code and easy to read.
+- Try different implementations of the same parser.
 
 ## TODO
-- Better error handling.
-- Tests.
+- More parser implementations.

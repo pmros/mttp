@@ -1,2 +1,4 @@
-.gitnore
+lib
+bin
 node_modules
+test

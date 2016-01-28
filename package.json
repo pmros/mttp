@@ -1,12 +1,16 @@
 {
   "name": "mttp",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "My Tiny Toy Parser",
-  "main": "lib/parser.js",
+  "main": "./bin/mttp",
   "repository": {
-      "type": "git",
-      "url": "git://github.com/pmros/mttp.git"
+    "type": "git",
+    "url": "git://github.com/pmros/mttp.git"
   },
+  "keywords": [
+    "lexer",
+    "parser"
+  ],
   "author": "pmros",
   "license": "MIT",
   "dependencies": {
@@ -14,6 +18,18 @@
   },
   "devDependencies": {
     "gulp": "^3.9.0",
+    "gulp-chmod": "^1.3.0",
+    "gulp-jasmine": "^2.0.1",
+    "gulp-livescript": "^2.4.0",
+    "gulp-rename": "^1.2.2",
+    "jasmine-core": "^2.3.4",
+    "jasmine-spec-reporter": "^2.2.3",
     "livescript": "^1.4.0"
+  },
+  "scripts": {
+    "test": "gulp jasmine"
+  },
+  "bin": {
+    "mttp": "./bin/mttp.js"
   }
 }
