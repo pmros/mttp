@@ -1,6 +1,6 @@
 {
   "name": "mttp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "My Tiny Toy Parser",
   "main": "./bin/mttp",
   "repository": {
@@ -9,7 +9,8 @@
   },
   "keywords": [
     "lexer",
-    "parser"
+    "parser",
+    "indentation"
   ],
   "author": "pmros",
   "license": "MIT",
@@ -30,6 +31,6 @@
     "test": "gulp jasmine"
   },
   "bin": {
-    "mttp": "./bin/mttp.js"
+    "mttp": "./bin/mttp"
   }
 }
