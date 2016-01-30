@@ -1,7 +1,7 @@
 require! {
   '../lexers/lex/lexer'
   '../adapters/lex_iterator/adapter' : Adapter
-  '../parsers/descendant/parser': Parser
+  '../parsers/descent/parser': Parser
 }
 
 class Compiler

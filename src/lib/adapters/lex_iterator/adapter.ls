@@ -1,7 +1,7 @@
 class LexerAdapter
   (@lexer) ->
   setStream: (input) ->
-    @lexer.input = input
+    @lexer.set-input input
   (Symbol.iterator): ->*
     loop
       name = @lexer.lex!

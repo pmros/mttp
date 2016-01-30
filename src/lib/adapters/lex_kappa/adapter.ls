@@ -3,7 +3,7 @@ require! '../../../vendor/kappa': k
 class LexerAdapter
   (@lexer) ->
   setStream: (input)->
-    @lexer.input = input
+    @lexer.set-input input
   getNext: ->
     name = @lexer.lex!
     text = @lexer.yytext
