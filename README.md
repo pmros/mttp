@@ -1,4 +1,4 @@
-#MTTP - My Tiny Toy Parser
+# MTTP - My Tiny Toy Parser
 
 ## What is MTTP?
 MTTP is a parser that takes an input like this:
@@ -31,10 +31,12 @@ npm install
 
 ## How does MTTP work?
 MTTP tries different implementations of lexers/parsers for the same grammar. Currently there is two implementations:
-*  Lex/Kappa compiler:
+
+* Lex/Kappa compiler:
   - Lexer: a lexer called [lexer](https://github.com/aaditmshah/lexer).
   - Adapter: it just adapts lexer tokens (flex/bison style) to expected Kappa tokens.
   - Parser: [Kappa](https://github.com/Mictian/kappa), a nice LALR parser.
+
 * Lex/Descent compiler:
   - Lexer: lexer.
   - Adapter: lex (ES6) iterator adapter.
