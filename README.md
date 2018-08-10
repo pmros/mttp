@@ -30,7 +30,7 @@ npm install
 ```
 
 ## How does MTTP work?
-MTTP tries different implementations of lexers/parsers for the same grammar. Currently there is two implementations:
+MTTP tries different implementations of lexers/parsers for the same grammar. Currently there are two implementations:
 
 * Lex/Kappa compiler:
   - Lexer: a lexer called [lexer](https://github.com/aaditmshah/lexer).
